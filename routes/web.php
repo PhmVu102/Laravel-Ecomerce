@@ -185,6 +185,20 @@ Route::middleware('auth')->group(function () {
                 [PaymentController::class, 'createMomoPayment']
             )->name('client.payment.momo');
         });
+
+    /*
+    |--------------------------------------------------------------------------
+    | CHAT / AI Conversation History
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('chat')
+        ->name('client.chat.')
+        ->group(function () {
+            Route::get('/conversations', [\App\Http\Controllers\ChatHistoryController::class, 'index'])->name('conversations.index');
+            Route::post('/conversations', [\App\Http\Controllers\ChatHistoryController::class, 'storeConversation'])->name('conversations.store');
+            Route::get('/conversations/{conversation}', [\App\Http\Controllers\ChatHistoryController::class, 'show'])->name('conversations.show');
+            Route::post('/conversations/{conversation}/messages', [\App\Http\Controllers\ChatHistoryController::class, 'storeMessage'])->name('conversations.messages.store');
+        });
 });
 
 Route::get(

@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReturnRequest::class);
     }
+
+    // Một user có nhiều cuộc trò chuyện (AI chat)
+    public function conversations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Conversation::class);
+    }
 }
